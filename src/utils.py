@@ -1,0 +1,36 @@
+import json
+import os
+
+from src.product import Product
+from src.category import Category
+
+
+def loads_category_and_product_data_from_json(path: str) -> dict:
+    """ Функция, которая загружает данные по категориям и товарам из файла JSON"""
+    path_to_file = os.path.abspath(path)
+    with open(path_to_file, 'r', encoding="UTF-8") as file:
+        category_and_product_data = json.load(file)
+        return category_and_product_data
+
+
+def create_object_from_json(category_and_product_data: dict):
+    """Функция, которая конвертирует полученные данные из файла JSON в объекты классов."""
+    categories = []
+    for category in category_and_product_data:
+        products = []
+        for product in category["products"]:
+            products.append(Product(**product))
+        category["products"] = products
+        categories.append(Category(**category))
+    return categories
+
+
+if __name__ == '__main__':
+    my_data = loads_category_and_product_data_from_json("../data/products.json")
+    print(my_data)
+    categories_data = create_object_from_json(my_data)
+    print(categories_data)
+    print(categories_data[0].name)
+    print(categories_data[0].description)
+    print(categories_data[0].products)
+

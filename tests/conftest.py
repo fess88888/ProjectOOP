@@ -1,0 +1,29 @@
+import pytest
+
+from src.category import Category
+from src.product import Product
+
+
+@pytest.fixture
+def product():
+    return Product(
+        name="Samsung Galaxy S23 Ultra", description="256GB, Серый цвет, 200MP камера", price=180000.0, quantity=5
+    )
+
+
+@pytest.fixture
+def category_1():
+    return Category(
+        "Смартфоны",
+        "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
+        ["Samsung Galaxy S23 Ultra", "Iphone 15", "Xiaomi Redmi Note 11"],
+    )
+
+
+@pytest.fixture
+def category_2():
+    return Category(
+        "Телевизоры",
+        "Современный телевизор, который позволяет наслаждаться просмотром,станет вашим другом и помощником",
+        ['55" QLED 4K'],
+    )
