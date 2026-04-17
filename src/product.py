@@ -14,9 +14,33 @@ class Product:
         При создании объекта автоматически добавляет его в список product_list."""
         self.name = name
         self.description = description
-        self.price = price
+        self.__price = price
         self.quantity = quantity
         Product.product_list.append(self)
+
+    @property
+    def price(self) -> float:
+        """Возвращает цену товаров."""
+        return self.__price
+
+    @price.setter
+    def price(self, value: float) -> None:
+        """Возвращает строку с ценой или сообщением об ошибке"""
+        if value <= 0:
+            print("Цена не должна быть нулевой или отрицательной")
+            return
+        self.__price = value
+
+    def check_change_price(self, new_price: float, user_confirmed: str) -> float:
+        """Изменение цены в случае ее понижения с согласия пользователя"""
+        if self.price != new_price:
+            if user_confirmed is None:
+                user_confirmed = input("Вы уверены, что хотите изменить цену? (да/нет): ")
+            if user_confirmed == "да":
+                self.price = new_price
+            elif user_confirmed != "нет":
+                print("Некорректный ответ. Цена не изменена.")
+        return self.price
 
     @classmethod
     def new_product(cls, product: dict) -> Any:
