@@ -25,7 +25,7 @@ def test_products_property(category_1):
     products_str = category_1.products
 
     assert "Samsung Galaxy S23 Ultra" in products_str
-    assert "180000.0 руб." in products_str
+    assert "180000 руб." in products_str
     assert "5 шт." in products_str
 
 

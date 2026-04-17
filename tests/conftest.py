@@ -54,3 +54,13 @@ def category_2():
         "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником",
         [product1],
     )
+
+
+@pytest.fixture
+def another_product():
+    return Product(
+        name="Iphone 15",
+        description="Смартфон Apple",
+        price=150000.0,
+        quantity=3
+    )
