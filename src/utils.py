@@ -2,8 +2,8 @@ import json
 import os
 from typing import Any
 
-from src.product import Product
 from src.category import Category
+from src.product import Product
 
 
 def loads_category_and_product_data_from_json(path: str) -> Any:
