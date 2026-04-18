@@ -31,7 +31,7 @@ def test_price_setter_invalid(product, capsys):
 
 def test_check_change_price_with_confirmation(product, monkeypatch):
     """Тест: изменение цены с подтверждением пользователя."""
-    monkeypatch.setattr('builtins.input', lambda _: "да")
+    monkeypatch.setattr("builtins.input", lambda _: "да")
 
     new_price = 170000.0
     result = product.check_change_price(new_price, None)
@@ -41,7 +41,7 @@ def test_check_change_price_with_confirmation(product, monkeypatch):
 
 def test_check_change_price_without_confirmation(product, monkeypatch):
     """Тест: отказ от изменения цены."""
-    monkeypatch.setattr('builtins.input', lambda _: "нет")
+    monkeypatch.setattr("builtins.input", lambda _: "нет")
 
     initial_price = product.price
     result = product.check_change_price(170000.0, None)
@@ -51,7 +51,7 @@ def test_check_change_price_without_confirmation(product, monkeypatch):
 
 def test_check_change_price_invalid_response(product, monkeypatch, capsys):
     """Тест: некорректный ответ пользователя."""
-    monkeypatch.setattr('builtins.input', lambda _: "что?")
+    monkeypatch.setattr("builtins.input", lambda _: "что?")
 
     initial_price = product.price
     result = product.check_change_price(170000.0, None)
@@ -75,7 +75,7 @@ def test_new_product_create_new(another_product):
         "name": "Xiaomi Redmi Note 11",
         "description": "Бюджетный смартфон",
         "price": 25000.0,
-        "quantity": 10
+        "quantity": 10,
     }
 
     created_product = Product.new_product(new_product_data)
@@ -88,11 +88,7 @@ def test_new_product_create_new(another_product):
 
 def test_new_product_update_existing(product):
     """Тест: обновление существующего товара через new_product."""
-    update_data = {
-        "name": "Samsung Galaxy S23 Ultra",
-        "price": 190000.0,
-        "quantity": 3
-    }
+    update_data = {"name": "Samsung Galaxy S23 Ultra", "price": 190000.0, "quantity": 3}
 
     updated_product = Product.new_product(update_data)
 
