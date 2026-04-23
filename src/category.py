@@ -1,14 +1,40 @@
+from src.product import Product
+
+
 class Category:
-    """Класс категорий товаров"""
+    """Класс для представления категории товаров."""
+
     name: str
     description: str
-    products: list
-    category_count = 0
-    product_count = 0
+    category_count: int = 0
+    product_count: int = 0
 
-    def __init__(self, name, description, products):
+    def __init__(self, name: str, description: str, products: list[Product]) -> None:
+        """Инициализирует новый экземпляр категории.
+        При создании категории увеличивает статические счётчики:
+        - category_count на 1 (количество категорий);
+        - product_count на количество товаров в категории."""
         self.name = name
         self.description = description
-        self.products = products
+        self.__products = products
         Category.category_count += 1
         Category.product_count += len(products)
+
+    def add_product(self, product: Product) -> None:
+        """Добавляет новый товар в категорию.
+        Обновляет общий счётчик товаров (product_count), увеличивая его на 1."""
+        self.__products.append(product)
+        Category.product_count += 1
+
+    @property
+    def products(self) -> str:
+        """Возвращает форматированное строковое представление всех товаров в категории."""
+        product_list = [
+            f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт." for product in self.__products
+        ]
+        return "\n".join(product_list) + "\n"
+
+    @property
+    def products_in_list(self) -> list[Product]:
+        """Возвращает список товаров категории в виде Python‑списка."""
+        return self.__products
