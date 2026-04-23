@@ -18,6 +18,9 @@ class Product:
         self.quantity = quantity
         Product.product_list.append(self)
 
+    def __str__(self) -> str:
+        return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
+
     @property
     def price(self) -> float:
         """Возвращает цену товаров."""

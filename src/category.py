@@ -20,17 +20,17 @@ class Category:
         Category.category_count += 1
         Category.product_count += len(products)
 
-    def add_product(self, product: Product) -> None:
+    def add_product(self, product_: Product) -> None:
         """Добавляет новый товар в категорию.
         Обновляет общий счётчик товаров (product_count), увеличивая его на 1."""
-        self.__products.append(product)
+        self.__products.append(product_)
         Category.product_count += 1
 
     @property
     def products(self) -> str:
         """Возвращает форматированное строковое представление всех товаров в категории."""
         product_list = [
-            f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт." for product in self.__products
+            f"{str(product_)}" for product_ in self.__products
         ]
         return "\n".join(product_list) + "\n"
 
