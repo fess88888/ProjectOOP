@@ -19,6 +19,7 @@ class Product:
         Product.product_list.append(self)
 
     def __str__(self) -> str:
+        """Возвращает строковое отображение продукта в следующем виде: Название продукта, руб. Остаток: шт."""
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
 
     @property

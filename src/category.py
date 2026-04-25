@@ -20,6 +20,13 @@ class Category:
         Category.category_count += 1
         Category.product_count += len(products)
 
+    def __str__(self):
+        """Подсчет общего количества продуктов в категории продукта"""
+        total_number_of_products = 0
+        for product in self.__products:
+            total_number_of_products += product.quantity
+        return f"{self.name}, количество продуктов: {total_number_of_products} шт."
+
     def add_product(self, product_: Product) -> None:
         """Добавляет новый товар в категорию.
         Обновляет общий счётчик товаров (product_count), увеличивая его на 1."""
