@@ -19,7 +19,7 @@ class Product:
         Product.product_list.append(self)
 
     def __str__(self) -> str:
-        """Возвращает строковое отображение продукта в следующем виде: Название продукта, руб. Остаток: шт."""
+        """Возвращает строковое представление товара: название, цена и остаток на складе."""
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
 
     @property
@@ -70,3 +70,7 @@ class Product:
                 quantity=product["quantity"],
             )
             return new_unit
+
+    def __add__(self, other) -> float:
+        """Получает полную стоимость всех товаров на складе."""
+        return (self.price * self.quantity) + (other.price * other.quantity)

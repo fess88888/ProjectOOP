@@ -20,8 +20,8 @@ class Category:
         Category.category_count += 1
         Category.product_count += len(products)
 
-    def __str__(self):
-        """Подсчет общего количества продуктов в категории продукта"""
+    def __str__(self) -> str:
+        """Возвращает строковое представление категории: название и общее количество единиц товара."""
         total_number_of_products = 0
         for product in self.__products:
             total_number_of_products += product.quantity

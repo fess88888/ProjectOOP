@@ -33,4 +33,3 @@ if __name__ == "__main__":
     categories_data = create_object_from_json(my_data)
     print(categories_data)
     print(categories_data[0].name)
-
