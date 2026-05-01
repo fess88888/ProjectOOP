@@ -102,3 +102,9 @@ def test_product_list_contains_all_products(product, another_product):
     assert len(Product.product_list) >= 2  # как минимум 2 товара
     assert product in Product.product_list
     assert another_product in Product.product_list
+
+def test_add_two_products_correct_calculation(product, another_product):
+    """Тест: корректное вычисление общей стоимости двух товаров"""
+    total_cost = product + another_product
+    expected_cost = (180000 * 5) + (150000 * 3)
+    assert total_cost == expected_cost

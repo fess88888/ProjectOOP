@@ -52,3 +52,15 @@ def test_multiple_add_products(category_1):
     assert product1 in category_1.products_in_list
     assert product2 in category_1.products_in_list
     assert Category.product_count == initial_count + 2
+
+def test_str_correct_format_and_calculation(category_1):
+    """Тест: корректное строковое представление с правильным подсчётом единиц товара"""
+    result = str(category_1)
+    expected = "Смартфоны, количество продуктов: 18 шт."  # 5 + 3 + 10 = 18
+    assert result == expected
+
+def test_str_single_product(category_2):
+    """Тест: категория с одним товаром — корректное отображение"""
+    result = str(category_2)
+    expected = 'Телевизоры, количество продуктов: 2 шт.'
+    assert result == expected
