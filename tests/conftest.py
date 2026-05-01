@@ -1,7 +1,7 @@
 import pytest
 
 from src.category import Category
-from src.product import Product
+from src.product import Product, Smartphone, LawnGrass
 
 
 @pytest.fixture
@@ -36,3 +36,54 @@ def category_2():
 @pytest.fixture
 def another_product():
     return Product(name="Iphone 15", description="Смартфон Apple", price=150000.0, quantity=3)
+
+
+@pytest.fixture
+def smartphone():
+    return Smartphone(
+        name="Samsung Galaxy S23 Ultra",
+        description="256GB, Серый цвет, 200MP камера",
+        price=180000.0,
+        quantity=5,
+        efficiency=9.8,
+        model="S23 Ultra",
+        memory=256,
+        color="Серый"
+    )
+
+@pytest.fixture
+def lawn_grass():
+    return LawnGrass(
+        name="Трава газонная универсальная",
+        description="Смесь семян для создания красивого газона",
+        price=2500.0,
+        quantity=100,
+        country="Россия",
+        germination_period="14–21 день",
+        color="Зелёный"
+    )
+
+@pytest.fixture
+def another_smartphone():
+    return Smartphone(
+        name="Iphone 15",
+        description="Смартфон Apple",
+        price=150000.0,
+        quantity=3,
+        efficiency=9.5,
+        model="15",
+        memory=128,
+        color="Чёрный"
+    )
+
+@pytest.fixture
+def another_lawn_grass():
+    return LawnGrass(
+        name="Трава газонная спортивная",
+        description="Устойчивая к вытаптыванию смесь",
+        price=3000.0,
+        quantity=80,
+        country="Германия",
+        germination_period="10–15 дней",
+        color="Тёмно-зелёный"
+    )
