@@ -134,7 +134,7 @@ def test_smartphone_add_correct_calculation(smartphone, another_smartphone):
 def test_smartphone_add_with_product_raises_type_error(smartphone, product):
     """Тест: попытка сложения смартфона с обычным товаром вызывает TypeError."""
     with pytest.raises(TypeError):
-        smartphone + product
+        result = smartphone + product
 
 
 def test_smartphone_str_representation(smartphone):
@@ -164,7 +164,7 @@ def test_lawn_grass_add_correct_calculation(lawn_grass, another_lawn_grass):
 def test_lawn_grass_add_with_product_raises_type_error(lawn_grass, product):
     """Тест: попытка сложения газонной травы с обычным товаром вызывает TypeError."""
     with pytest.raises(TypeError):
-        lawn_grass + product
+        result = lawn_grass + product
 
 
 def test_lawn_grass_str_representation(lawn_grass):
@@ -182,4 +182,4 @@ def test_product_str_representation(product):
 def test_add_with_non_product_raises_type_error(product):
     """Тест: попытка сложения товара с не-товаром вызывает TypeError."""
     with pytest.raises(TypeError):
-        product + "не товар"
+        result = product + "не товар"

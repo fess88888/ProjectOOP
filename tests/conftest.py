@@ -51,6 +51,7 @@ def smartphone():
         color="Серый"
     )
 
+
 @pytest.fixture
 def lawn_grass():
     return LawnGrass(
@@ -62,6 +63,7 @@ def lawn_grass():
         germination_period="14–21 день",
         color="Зелёный"
     )
+
 
 @pytest.fixture
 def another_smartphone():
@@ -75,6 +77,7 @@ def another_smartphone():
         memory=128,
         color="Чёрный"
     )
+
 
 @pytest.fixture
 def another_lawn_grass():
