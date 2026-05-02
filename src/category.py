@@ -39,9 +39,7 @@ class Category:
     @property
     def products(self) -> str:
         """Возвращает форматированное строковое представление всех товаров в категории."""
-        product_list = [
-            f"{str(product_)}" for product_ in self.__products
-        ]
+        product_list = [f"{str(product_)}" for product_ in self.__products]
         return "\n".join(product_list) + "\n"
 
     @property

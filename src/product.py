@@ -39,7 +39,25 @@ class BaseProduct(ABC):
         pass
 
 
-class Product(BaseProduct):
+class LoggingMixin:
+    """Миксин для логирования создания объектов — выводит информацию о классе и параметрах инициализации."""
+
+    class LoggingMixin:
+        def __init__(self, *args, **kwargs):
+            class_name = self.__class__.__name__
+            args_repr = [repr(arg) for arg in args]
+            kwargs_repr = [f"{k}={v!r}" for k, v in kwargs.items()]
+            all_args = args_repr + kwargs_repr
+            args_str = ', '.join(all_args)
+            print(f"{class_name}({args_str})")
+
+            try:
+                super().__init__(*args, **kwargs)
+            except AttributeError:
+                pass
+
+
+class Product(LoggingMixin, BaseProduct):
     """Класс для представления характеристик товара"""
 
     product_list: list = []
