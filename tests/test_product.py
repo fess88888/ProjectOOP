@@ -1,3 +1,4 @@
+import pytest
 from src.product import Product
 
 
@@ -103,8 +104,82 @@ def test_product_list_contains_all_products(product, another_product):
     assert product in Product.product_list
     assert another_product in Product.product_list
 
+
 def test_add_two_products_correct_calculation(product, another_product):
     """Тест: корректное вычисление общей стоимости двух товаров"""
     total_cost = product + another_product
     expected_cost = (180000 * 5) + (150000 * 3)
     assert total_cost == expected_cost
+
+
+def test_smartphone_init(smartphone):
+    """Тест: проверка инициализации смартфона."""
+    assert smartphone.name == "Samsung Galaxy S23 Ultra"
+    assert smartphone.description == "256GB, Серый цвет, 200MP камера"
+    assert smartphone.price == 180000.0
+    assert smartphone.quantity == 5
+    assert smartphone.efficiency == 9.8
+    assert smartphone.model == "S23 Ultra"
+    assert smartphone.memory == 256
+    assert smartphone.color == "Серый"
+
+
+def test_smartphone_add_correct_calculation(smartphone, another_smartphone):
+    """Тест: корректное вычисление общей стоимости двух смартфонов."""
+    total_cost = smartphone + another_smartphone
+    expected_cost = (180000 * 5) + (150000 * 3)
+    assert total_cost == expected_cost
+
+
+def test_smartphone_add_with_product_raises_type_error(smartphone, product):
+    """Тест: попытка сложения смартфона с обычным товаром вызывает TypeError."""
+    with pytest.raises(TypeError):
+        result = smartphone + product
+
+
+def test_smartphone_str_representation(smartphone):
+    """Тест: строковое представление смартфона."""
+    expected_str = "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт."
+    assert str(smartphone) == expected_str
+
+
+def test_lawn_grass_init(lawn_grass):
+    """Тест: проверка инициализации газонной травы."""
+    assert lawn_grass.name == "Трава газонная универсальная"
+    assert lawn_grass.description == "Смесь семян для создания красивого газона"
+    assert lawn_grass.price == 2500.0
+    assert lawn_grass.quantity == 100
+    assert lawn_grass.country == "Россия"
+    assert lawn_grass.germination_period == "14–21 день"
+    assert lawn_grass.color == "Зелёный"
+
+
+def test_lawn_grass_add_correct_calculation(lawn_grass, another_lawn_grass):
+    """Тест: корректное вычисление общей стоимости двух видов газонной травы."""
+    total_cost = lawn_grass + another_lawn_grass
+    expected_cost = (2500 * 100) + (3000 * 80)
+    assert total_cost == expected_cost
+
+
+def test_lawn_grass_add_with_product_raises_type_error(lawn_grass, product):
+    """Тест: попытка сложения газонной травы с обычным товаром вызывает TypeError."""
+    with pytest.raises(TypeError):
+        result = lawn_grass + product
+
+
+def test_lawn_grass_str_representation(lawn_grass):
+    """Тест: строковое представление газонной травы."""
+    expected_str = "Трава газонная универсальная, 2500.0 руб. Остаток: 100 шт."
+    assert str(lawn_grass) == expected_str
+
+
+def test_product_str_representation(product):
+    """Тест: строковое представление товара."""
+    expected_str = "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт."
+    assert str(product) == expected_str
+
+
+def test_add_with_non_product_raises_type_error(product):
+    """Тест: попытка сложения товара с не-товаром вызывает TypeError."""
+    with pytest.raises(TypeError):
+        result = product + "не товар"

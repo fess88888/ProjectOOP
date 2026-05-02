@@ -15,6 +15,8 @@ git clone git@github.com:fess88888/Project2.git
 1. Category - класс категорий товаров.
 ### Модуль product
 1. Product - класс характеристик товара
+    - Smartphone - подкласс характеристик товаров вида Смартфоны
+    - LawnGrass - подкласс характеристик товаров вида Трава газонная
 ### Модуль utils
 1. Функция loads_category_and_product_data_from_json загружает данные по категориям и товарам из файла JSON.
 2. Функция create_object_from_json конвертирует полученные данные из файла JSON в объекты классов.

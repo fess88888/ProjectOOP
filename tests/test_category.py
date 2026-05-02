@@ -1,3 +1,4 @@
+import pytest
 from src.category import Category
 from src.product import Product
 
@@ -53,14 +54,22 @@ def test_multiple_add_products(category_1):
     assert product2 in category_1.products_in_list
     assert Category.product_count == initial_count + 2
 
+
 def test_str_correct_format_and_calculation(category_1):
     """Тест: корректное строковое представление с правильным подсчётом единиц товара"""
     result = str(category_1)
     expected = "Смартфоны, количество продуктов: 18 шт."  # 5 + 3 + 10 = 18
     assert result == expected
 
+
 def test_str_single_product(category_2):
     """Тест: категория с одним товаром — корректное отображение"""
     result = str(category_2)
     expected = 'Телевизоры, количество продуктов: 2 шт.'
     assert result == expected
+
+
+def test_add_invalid_product_type(category_1):
+    """Тест: попытка добавления объекта не типа Product в категорию."""
+    with pytest.raises(TypeError):
+        category_1.add_product("Не товар")
