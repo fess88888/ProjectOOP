@@ -1,12 +1,47 @@
-from typing import Any
+from typing import Any, Dict
+from abc import ABC, abstractmethod
 
 
-class Product:
+class BaseProduct(ABC):
+    """Базовый абстрактный класс для всех продуктов"""
+
+    @abstractmethod
+    def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
+        """Инициализация продукта"""
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        """Строковое представление товара"""
+        pass
+
+    @property
+    @abstractmethod
+    def price(self) -> float:
+        """Получение цены товара"""
+        pass
+
+    @price.setter
+    @abstractmethod
+    def price(self, value: float) -> None:
+        """Установка цены товара с валидацией"""
+        pass
+
+    @abstractmethod
+    def calculate_total_cost(self) -> float:
+        """Расчёт общей стоимости товара на складе (цена × количество)"""
+        pass
+
+    @classmethod
+    @abstractmethod
+    def new_product(cls, product_data: Dict[str, Any]) -> Any:
+        """Создание нового продукта или обновление существующего"""
+        pass
+
+
+class Product(BaseProduct):
     """Класс для представления характеристик товара"""
 
-    name: str
-    description: str
-    quantity: int
     product_list: list = []
 
     def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
@@ -24,19 +59,22 @@ class Product:
 
     @property
     def price(self) -> float:
-        """Возвращает цену товаров."""
+        """Возвращает цену товара."""
         return self.__price
 
     @price.setter
     def price(self, value: float) -> None:
-        """Возвращает строку с ценой или сообщением об ошибке"""
+        """Устанавливает цену товара с проверкой на корректность."""
         if value <= 0:
-            print("Цена не должна быть нулевой или отрицательной")
-            return
+            raise ValueError("Цена не должна быть нулевой или отрицательной")
         self.__price = value
 
-    def check_change_price(self, new_price: float, user_confirmed: str) -> float:
-        """Изменение цены в случае ее понижения с согласия пользователя"""
+    def calculate_total_cost(self) -> float:
+        """Рассчитывает общую стоимость товара на складе."""
+        return self.price * self.quantity
+
+    def check_change_price(self, new_price: float, user_confirmed: str = None) -> float:
+        """Изменение цены в случае её понижения с согласия пользователя"""
         if self.price != new_price:
             if user_confirmed is None:
                 user_confirmed = input("Вы уверены, что хотите изменить цену? (да/нет): ")
@@ -47,7 +85,7 @@ class Product:
         return self.price
 
     @classmethod
-    def new_product(cls, product: dict) -> Any:
+    def new_product(cls, product: Dict[str, Any]) -> Any:
         """Добавляет новый товар или обновляет существующий с таким же именем."""
 
         existing_product = None
@@ -73,9 +111,9 @@ class Product:
 
     def __add__(self, other) -> float:
         """Получает полную стоимость всех товаров на складе."""
-        if type(other) is Product:
-            return (self.price * self.quantity) + (other.price * other.quantity)
-        raise TypeError
+        if isinstance(other, Product):
+            return self.calculate_total_cost() + other.calculate_total_cost()
+        raise TypeError("Можно складывать только объекты класса Product")
 
 
 class Smartphone(Product):
@@ -98,11 +136,19 @@ class Smartphone(Product):
         self.memory = memory
         self.color = color
 
+    def __str__(self) -> str:
+        """Расширенное строковое представление смартфона"""
+        base_str = super().__str__()
+        return (
+            f"{base_str}, модель: {self.model}, память: {self.memory} ГБ, "
+            f"цвет: {self.color}, эффективность: {self.efficiency}"
+        )
+
     def __add__(self, other) -> float:
-        """Получает полную стоимость всех товаров класса Смартфоны на складе."""
-        if type(other) is Smartphone:
-            return (self.price * self.quantity) + (other.price * other.quantity)
-        raise TypeError
+        """Получает полную стоимость смартфонов на складе"""
+        if isinstance(other, Smartphone):
+            return self.calculate_total_cost() + other.calculate_total_cost()
+        raise TypeError("Можно складывать только смартфоны")
 
 
 class LawnGrass(Product):
@@ -123,8 +169,16 @@ class LawnGrass(Product):
         self.germination_period = germination_period
         self.color = color
 
+    def __str__(self) -> str:
+        """Расширенное строковое представление газонной травы"""
+        base_str = super().__str__()
+        return (
+            f"{base_str}, страна: {self.country}, период прорастания: "
+            f"{self.germination_period}, цвет: {self.color}"
+        )
+
     def __add__(self, other) -> float:
-        """Получает полную стоимость всех товаров класса Трава газонная на складе."""
-        if type(other) is LawnGrass:
-            return (self.price * self.quantity) + (other.price * other.quantity)
-        raise TypeError
+        """Получает полную стоимость газонной травы на складе"""
+        if isinstance(other, LawnGrass):
+            return self.calculate_total_cost() + other.calculate_total_cost()
+        raise TypeError("Можно складывать только газонную траву")
