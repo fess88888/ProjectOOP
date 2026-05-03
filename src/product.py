@@ -42,22 +42,14 @@ class BaseProduct(ABC):
 class LoggingMixin:
     """Миксин для логирования создания объектов — выводит информацию о классе и параметрах инициализации."""
 
-    class LoggingMixin:
-        def __init__(self, *args, **kwargs):
-            class_name = self.__class__.__name__
-            args_repr = [repr(arg) for arg in args]
-            kwargs_repr = [f"{k}={v!r}" for k, v in kwargs.items()]
-            all_args = args_repr + kwargs_repr
-            args_str = ', '.join(all_args)
-            print(f"{class_name}({args_str})")
+    def log_creation(self):
+        print(repr(self))
 
-            try:
-                super().__init__(*args, **kwargs)
-            except AttributeError:
-                pass
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})"
 
 
-class Product(LoggingMixin, BaseProduct):
+class Product(BaseProduct, LoggingMixin):
     """Класс для представления характеристик товара"""
 
     product_list: list = []
@@ -70,6 +62,7 @@ class Product(LoggingMixin, BaseProduct):
         self.__price = price
         self.quantity = quantity
         Product.product_list.append(self)
+        self.log_creation()
 
     def __str__(self) -> str:
         """Возвращает строковое представление товара: название, цена и остаток на складе."""
