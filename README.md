@@ -6,7 +6,7 @@ E-commerce  — электронная торговля, или электрон
 ## Установка
 Клонируйте репозиторий
 ```
-git clone git@github.com:fess88888/Project2.git
+git clone git@github.com:fess88888/ProjectOOP.git
 ```
 ## Модуль main
 Отвечает за основную логику проекта и связывает функциональности между собой.
