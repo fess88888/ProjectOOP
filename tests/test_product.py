@@ -21,11 +21,10 @@ def test_price_setter_valid(product):
     assert product.price == 200000.0
 
 
-def test_price_setter_invalid(product, capsys):
-    """Тест: попытка установить некорректную цену (≤0)."""
-    product.price = -1000
-    captured = capsys.readouterr()
-    assert "Цена не должна быть нулевой или отрицательной" in captured.out
+def test_price_setter_invalid(product):
+    """Тест: попытка установить некорректную цену (≤0) вызывает исключение."""
+    with pytest.raises(ValueError, match="Цена не должна быть нулевой или отрицательной"):
+        product.price = -1000
     # Цена не должна измениться
     assert product.price == 180000.0
 
@@ -139,7 +138,10 @@ def test_smartphone_add_with_product_raises_type_error(smartphone, product):
 
 def test_smartphone_str_representation(smartphone):
     """Тест: строковое представление смартфона."""
-    expected_str = "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт."
+    expected_str = (
+        "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт., "
+        "модель: S23 Ultra, память: 256 ГБ, цвет: Серый, эффективность: 9.8"
+    )
     assert str(smartphone) == expected_str
 
 
@@ -169,7 +171,10 @@ def test_lawn_grass_add_with_product_raises_type_error(lawn_grass, product):
 
 def test_lawn_grass_str_representation(lawn_grass):
     """Тест: строковое представление газонной травы."""
-    expected_str = "Трава газонная универсальная, 2500.0 руб. Остаток: 100 шт."
+    expected_str = (
+        "Трава газонная универсальная, 2500.0 руб. Остаток: 100 шт., "
+        "страна: Россия, период прорастания: 14–21 день, цвет: Зелёный"
+    )
     assert str(lawn_grass) == expected_str
 
 
