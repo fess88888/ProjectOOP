@@ -188,3 +188,8 @@ def test_add_with_non_product_raises_type_error(product):
     """Тест: попытка сложения товара с не-товаром вызывает TypeError."""
     with pytest.raises(TypeError):
         result = product + "не товар"
+
+
+def test_product_with_zero_quantity():
+    with pytest.raises(ValueError, match="Товар с нулевым количеством не может быть добавлен"):
+        Product(name="Бракованный товар", description="Неверное количество", price=1000.0, quantity=0)
