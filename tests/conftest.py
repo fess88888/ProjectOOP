@@ -90,3 +90,8 @@ def another_lawn_grass():
         germination_period="10–15 дней",
         color="Тёмно-зелёный"
     )
+
+
+@pytest.fixture
+def category_empty():
+    return Category("Пустая категория", "Категория без продуктов", [])
