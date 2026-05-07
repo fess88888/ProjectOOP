@@ -46,3 +46,10 @@ class Category:
     def products_in_list(self) -> list[Product]:
         """Возвращает список товаров категории в виде Python‑списка."""
         return self.__products
+
+    def middle_price(self) -> float:
+        try:
+            middle_price = sum([product.price for product in self.__products]) / len(self.__products)
+            return middle_price
+        except ZeroDivisionError:
+            return 0

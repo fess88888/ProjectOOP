@@ -41,11 +41,15 @@ class BaseProduct(ABC):
 
 class LoggingMixin:
     """Миксин для логирования создания объектов — выводит информацию о классе и параметрах инициализации."""
+    name: str
+    description: str
+    price: float
+    quantity: int
 
-    def log_creation(self):
+    def log_creation(self) -> None:
         print(repr(self))
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})"
 
 
@@ -60,7 +64,10 @@ class Product(BaseProduct, LoggingMixin):
         self.name = name
         self.description = description
         self.__price = price
-        self.quantity = quantity
+        if quantity > 0:
+            self.quantity = quantity
+        else:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
         Product.product_list.append(self)
         self.log_creation()
 
@@ -84,7 +91,7 @@ class Product(BaseProduct, LoggingMixin):
         """Рассчитывает общую стоимость товара на складе."""
         return self.price * self.quantity
 
-    def check_change_price(self, new_price: float, user_confirmed: str = None) -> float:
+    def check_change_price(self, new_price: float, user_confirmed: str) -> float:
         """Изменение цены в случае её понижения с согласия пользователя"""
         if self.price != new_price:
             if user_confirmed is None:
@@ -120,7 +127,7 @@ class Product(BaseProduct, LoggingMixin):
             )
             return new_unit
 
-    def __add__(self, other) -> float:
+    def __add__(self, other: float) -> float:
         """Получает полную стоимость всех товаров на складе."""
         if isinstance(other, Product):
             return self.calculate_total_cost() + other.calculate_total_cost()
@@ -155,7 +162,7 @@ class Smartphone(Product):
             f"цвет: {self.color}, эффективность: {self.efficiency}"
         )
 
-    def __add__(self, other) -> float:
+    def __add__(self, other: float) -> float:
         """Получает полную стоимость смартфонов на складе"""
         if isinstance(other, Smartphone):
             return self.calculate_total_cost() + other.calculate_total_cost()
@@ -188,7 +195,7 @@ class LawnGrass(Product):
             f"{self.germination_period}, цвет: {self.color}"
         )
 
-    def __add__(self, other) -> float:
+    def __add__(self, other: float) -> float:
         """Получает полную стоимость газонной травы на складе"""
         if isinstance(other, LawnGrass):
             return self.calculate_total_cost() + other.calculate_total_cost()

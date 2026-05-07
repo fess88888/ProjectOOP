@@ -73,3 +73,8 @@ def test_add_invalid_product_type(category_1):
     """Тест: попытка добавления объекта не типа Product в категорию."""
     with pytest.raises(TypeError):
         category_1.add_product("Не товар")
+
+
+def test_middle_price(category_1, category_empty):
+    assert round(category_1.middle_price(), 2) == 118333.33
+    assert category_empty.middle_price() == 0
